@@ -47,12 +47,31 @@
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
         <div>
           <label class="block text-sm font-medium text-urban-dark-slate mb-2">
             Salary Expectation
           </label>
           <input v-model="form.salary_expectation" type="text" class="input-field"
             placeholder="e.g., $100,000 - $120,000" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-urban-dark-slate mb-2">
+            Provided Salary
+          </label>
+          <input v-model="form.provided_salary" type="text" class="input-field" placeholder="e.g., $100,000" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-urban-dark-slate mb-2">
+            Salary Provided Type
+          </label>
+          <select v-model="form.salary_provided_type" class="input-field" required>
+            <option value="annual">Annual</option>
+            <option value="monthly">Monthly</option>
+            <option value="hourly">Hourly</option>
+          </select>
         </div>
 
         <div>
@@ -64,6 +83,28 @@
             <option value="part-time">Part-time</option>
             <option value="contract">Contract</option>
           </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-urban-dark-slate mb-2">
+            Job Location *
+          </label>
+          <select v-model="form.job_location" class="input-field" required placeholder="Select job location">
+            <option value="remote">Remote</option>
+            <option value="on-site">On-site</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+        </div>
+
+        <!-- applied at -->
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Applied At *
+          </label>
+          <VueDatePicker v-model="form.applied_date" auto-apply placeholder="Select apply date"
+            :formats="{ input: 'yyyy-MM-dd' }">
+          </VueDatePicker>
+          <!-- <input v-model="form.applied_at" type="date" class="input-field" required /> -->
         </div>
       </div>
 
@@ -115,7 +156,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { VueDatePicker } from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 definePageMeta({
   middleware: 'auth',
 })
@@ -129,17 +173,21 @@ const form = ref({
   applied_from: '',
   job_description: '',
   salary_expectation: '',
-  job_type: 'full-time' as const,
-  experience_level: 'mid' as const,
+  provided_salary: '',
+  salary_provided_type: 'monthly', // e.g., "annual", "monthly"
+  job_location: 'on-site', // e.g., "remote", "on-site", "hybrid"
+  job_type: 'full-time', // fulltime, part-time, contract, permanent
+  experience_level: 'mid',
   experience_year: 0,
   skills: '',
+  applied_date: '',
 })
 
 const handleSubmit = async () => {
   const skillsArray = form.value.skills
     .split(',')
-    .map((s: string) => s.trim())
-    .filter((s: string) => s)
+    .map((s) => s.trim())
+    .filter((s) => s)
 
   const result = await submitApplication({
     ...form.value,

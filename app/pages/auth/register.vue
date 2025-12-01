@@ -77,7 +77,7 @@
 
       <!-- Login Link -->
       <div class="text-center">
-        <p class="text-urban-slate text-sm mb-2">
+        <p class="text-urban-slate text-sm pb-5">
           Already have an account?
         </p>
         <NuxtLink to="/auth/login" class="btn-outline w-full text-center py-2.5 text-base font-semibold">
@@ -86,7 +86,7 @@
       </div>
 
       <!-- Back Home Link -->
-      <div class="mt-6 text-center">
+      <div class="mt-4 text-center">
         <NuxtLink to="/" class="text-sm text-urban-slate hover:text-urban-indigo transition-colors duration-200">
           ← Back to Home
         </NuxtLink>
@@ -95,7 +95,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   layout: 'auth',
   middleware: 'auth',

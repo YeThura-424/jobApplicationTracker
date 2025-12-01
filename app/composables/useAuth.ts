@@ -42,11 +42,11 @@ export const useAuth = () => {
 
       // Create user profile
       const { data: profileData, error: profileError } = await $supabase
-        .from('users')
+        .from('profile')
         .insert([
           {
+            id: authData.user.id,
             name: credentials.name,
-            email: credentials.email,
             occupation: credentials.occupation,
             age: credentials.age,
             country: credentials.country,

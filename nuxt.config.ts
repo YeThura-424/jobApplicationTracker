@@ -11,6 +11,9 @@ export default defineNuxtConfig({
       supabaseAnonKey: process.env.SUPABASE_API_KEY,
     }
   },
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
   vite: {
     plugins: [
       tailwindcss(),

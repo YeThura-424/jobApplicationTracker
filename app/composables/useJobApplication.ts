@@ -17,14 +17,13 @@ export const useJobApplication = () => {
       if (!session?.user) throw new Error('User not authenticated')
 
       const { data, error: submitError } = await supabase
-        .from('job_applications')
+        .from('job_application')
         .insert([
           {
             user_id: session.user.id,
             ...input,
             skills: Array.isArray(input.skills) ? input.skills : input.skills.split(',').map(s => s.trim()),
             status: 'applied',
-            applied_date: new Date().toISOString(),
           },
         ])
         .select()
@@ -36,7 +35,7 @@ export const useJobApplication = () => {
 
       // Create initial status log
       await supabase
-        .from('job_status_logs')
+        .from('job_status_log')
         .insert([
           {
             application_id: data.id,
@@ -64,7 +63,7 @@ export const useJobApplication = () => {
       if (!session?.user) throw new Error('User not authenticated')
 
       const { data, error: fetchError } = await supabase
-        .from('job_applications')
+        .from('job_application')
         .select('*')
         .eq('user_id', session.user.id)
         .order('applied_date', { ascending: false })
@@ -87,7 +86,7 @@ export const useJobApplication = () => {
 
     try {
       const { data, error: fetchError } = await supabase
-        .from('job_applications')
+        .from('job_application')
         .select('*')
         .eq('id', id)
         .single()
@@ -111,7 +110,7 @@ export const useJobApplication = () => {
     try {
       // Update application status
       const { data, error: updateError } = await supabase
-        .from('job_applications')
+        .from('job_application')
         .update({ status: input.status })
         .eq('id', applicationId)
         .select()
@@ -121,7 +120,7 @@ export const useJobApplication = () => {
 
       // Create status log entry
       const { error: logError } = await supabase
-        .from('job_status_logs')
+        .from('job_status_log')
         .insert([
           {
             application_id: applicationId,
@@ -154,7 +153,7 @@ export const useJobApplication = () => {
 
     try {
       const { data, error: fetchError } = await supabase
-        .from('job_status_logs')
+        .from('job_status_log')
         .select('*')
         .eq('application_id', applicationId)
         .order('updated_at', { ascending: false })

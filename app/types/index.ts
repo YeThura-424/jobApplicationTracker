@@ -44,11 +44,16 @@ export interface JobApplicationInput {
   job_description: string
   location: string
   salary_expectation: string
+  provided_salary: string
+  salary_provided_type: string
   experience_level: string
   experience_year: number
   skills: string[] | string
   job_type: 'full-time' | 'part-time' | 'contract'
-  applied_from: string
+  applied_from: string,
+  job_location: string,
+  applied_at: string
+
 }
 
 // Job Status Log types

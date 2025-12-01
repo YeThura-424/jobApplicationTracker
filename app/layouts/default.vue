@@ -8,7 +8,7 @@
           <NuxtLink to="/applications" class="flex items-center gap-2 group">
             <div
               class="p-2 bg-linear-to-br from-urban-indigo to-urban-slate rounded-lg transition-transform duration-200 group-hover:scale-110">
-              <span class="text-lg md:text-xl font-bold text-white">JT</span>
+              <span class="text-lg md:text-xl font-bold text-white">GR-JT</span>
             </div>
             <span
               class="hidden sm:inline text-xl md:text-2xl font-bold text-urban-darkslate group-hover:text-urban-indigo transition-colors duration-200">
