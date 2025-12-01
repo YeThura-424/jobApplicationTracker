@@ -46,7 +46,7 @@ export interface JobApplicationInput {
   salary_expectation: string
   experience_level: string
   experience_year: number
-  skills: string[]
+  skills: string[] | string
   job_type: 'full-time' | 'part-time' | 'contract'
   applied_from: string
 }

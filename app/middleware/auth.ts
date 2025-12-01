@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { $supabase } = useNuxtApp()
+  const { $supabase: supabase } = useNuxtApp()
 
-  const { data: { session } } = await $supabase.auth.getSession()
+  const { data: { session } } = await supabase.auth.getSession()
 
   // If no session and trying to access protected route, redirect to login
   if (!session && to.path !== '/auth/login' && to.path !== '/auth/register' && to.path !== '/') {

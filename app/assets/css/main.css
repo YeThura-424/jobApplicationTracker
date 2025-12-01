@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@theme {
+  --color-urban-darkslate: #2F4F4F;
+    --color-urban-dim: #696969;
+    --color-urban-slate: #708090;
+    --color-urban-lightslate: #778899;
+    --color-urban-indigo: #4B0082;
+}

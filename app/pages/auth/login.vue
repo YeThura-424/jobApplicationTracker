@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   layout: 'auth',
   middleware: 'auth',

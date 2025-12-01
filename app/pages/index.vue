@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="min-h-screen bg-gradient-to-br from-urban-dark-slate to-urban-slate flex flex-col items-center justify-center py-12 px-4">
+  <div class="min-h-screen bg-urban-darkslate flex flex-col items-center justify-center py-12 px-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-white mb-2">JobTracker</h1>
@@ -45,7 +44,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   layout: 'auth',
 })

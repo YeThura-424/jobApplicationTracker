@@ -1,4 +1,3 @@
-import { supabase } from '~/utils/supabase'
 import type { JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusLog } from '~/types'
 
 export const useJobApplication = () => {
@@ -7,6 +6,7 @@ export const useJobApplication = () => {
   const statusLogs = ref<JobStatusLog[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
+  const { $supabase: supabase } = useNuxtApp()
 
   const submitApplication = async (input: JobApplicationInput) => {
     loading.value = true

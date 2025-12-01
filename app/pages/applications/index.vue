@@ -66,7 +66,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   middleware: 'auth',
 })
@@ -77,19 +77,19 @@ onMounted(() => {
   getApplications()
 })
 
-const formatStatus = (status: string) => {
+const formatStatus = (status) => {
   return status.charAt(0).toUpperCase() + status.slice(1)
 }
 
-const formatJobType = (type: string) => {
+const formatJobType = (type) => {
   return type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
 
-const formatDate = (date: string) => {
+const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
 
-const getStatusBadgeClass = (status: string) => {
+const getStatusBadgeClass = (status) => {
   const baseClass = 'badge px-3 py-1'
   switch (status) {
     case 'offered':
