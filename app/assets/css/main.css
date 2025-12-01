@@ -1,9 +1,180 @@
 @import "tailwindcss";
 
-@theme {
-  --color-urban-darkslate: #2F4F4F;
+@layer base {
+  :root {
+    --color-urban-darkslate: #2F4F4F;
     --color-urban-dim: #696969;
     --color-urban-slate: #708090;
     --color-urban-lightslate: #778899;
     --color-urban-indigo: #4B0082;
+  }
+
+  body {
+    background-color: rgb(248 250 252);
+    color: #2F4F4F;
+    transition: color 0.2s, background-color 0.2s;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    padding: 0.5rem 1rem;
+    background-color: #4B0082;
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    padding: 0.5rem 1rem;
+    background-color: #708090;
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background-color: #778899;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.5;
+  }
+
+  .btn-outline {
+    padding: 0.5rem 1rem;
+    border: 2px solid #708090;
+    color: #708090;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    background-color: #708090;
+    color: white;
+  }
+
+  .btn-outline:disabled {
+    opacity: 0.5;
+  }
+
+  .btn-danger {
+    padding: 0.5rem 1rem;
+    background-color: rgb(220 38 38);
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+  }
+
+  .btn-danger:hover {
+    background-color: rgb(185 28 28);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-danger:disabled {
+    opacity: 0.5;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border: 1px solid rgb(226 232 240);
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-hover {
+    cursor: pointer;
+  }
+
+  .card-hover:hover {
+    border-color: #4B0082;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .badge-success {
+    background-color: rgb(220 252 231);
+    color: rgb(22 101 52);
+  }
+
+  .badge-interviewing {
+    background-color: rgb(219 234 254);
+    color: rgb(30 58 138);
+  }
+
+  .badge-rejected {
+    background-color: rgb(254 226 226);
+    color: rgb(153 27 27);
+  }
+
+  .badge-pending {
+    background-color: #778899;
+    color: white;
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(203 213 225);
+    border-radius: 0.5rem;
+    background-color: white;
+    transition: all 0.2s;
+  }
+
+  .input-field:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(75, 0, 130, 0.1), inset 0 0 0 1px #4B0082;
+  }
+
+  .input-field::placeholder {
+    color: rgb(148 163 184);
+  }
+
+  .textarea-field {
+    resize: none;
+  }
+
+  .label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #2F4F4F;
+    margin-bottom: 0.5rem;
+  }
+
+  .divider {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid rgb(226 232 240);
+  }
 }

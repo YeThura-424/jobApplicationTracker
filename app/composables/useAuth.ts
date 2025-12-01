@@ -45,7 +45,6 @@ export const useAuth = () => {
         .from('users')
         .insert([
           {
-            id: authData.user.id,
             name: credentials.name,
             email: credentials.email,
             occupation: credentials.occupation,
