@@ -27,7 +27,8 @@
         <div class="space-y-4 mb-8">
           <div class="flex items-start gap-4">
             <div class="shrink-0">
-              <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-white font-bold">
+              <div
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
                 ✓
               </div>
             </div>
@@ -39,7 +40,8 @@
 
           <div class="flex items-start gap-4">
             <div class="shrink-0">
-              <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-white font-bold">
+              <div
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
                 ✓
               </div>
             </div>
@@ -51,7 +53,8 @@
 
           <div class="flex items-start gap-4">
             <div class="shrink-0">
-              <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-white font-bold">
+              <div
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
                 ✓
               </div>
             </div>
@@ -63,7 +66,8 @@
 
           <div class="flex items-start gap-4">
             <div class="shrink-0">
-              <div class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-white font-bold">
+              <div
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
                 ✓
               </div>
             </div>

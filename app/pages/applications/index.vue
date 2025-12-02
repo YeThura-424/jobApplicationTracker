@@ -24,7 +24,7 @@
     <!-- Empty State -->
     <div v-else-if="applications.length === 0" class="card text-center py-16 md:py-20">
       <div class="text-5xl mb-4">📭</div>
-      <h2 class="text-2xl md:text-3xl font-bold text-urban-darkslate mb-2">No applications yet</h2>
+      <h2 class="text-2xl font-bold text-urban-darkslate mb-2">No applications yet</h2>
       <p class="text-urban-slate mb-8 text-base md:text-lg">Start tracking your job search today!</p>
       <NuxtLink to="/applications/new" class="btn-primary inline-block py-3 px-6">
         Submit Your First Application
@@ -36,8 +36,8 @@
       <div v-for="app in applications" :key="app.id" @click="navigateTo(`/applications/${app.id}`)" class="card-hover">
         <!-- Top section: Title and Status -->
         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
-          <div class="flex-1 min-w-0">
-            <h2 class="text-xl md:text-2xl font-bold text-urban-darkslate truncate">{{ app.job_title }}</h2>
+          <div class="">
+            <h2 class="text-lg font-bold text-urban-darkslate truncate">{{ app.job_title }}</h2>
             <p class="text-urban-slate text-sm md:text-base mt-1">{{ app.company }} • {{ app.location }}</p>
           </div>
           <span :class="getStatusBadgeClass(app.status)" class="whitespace-nowrap">

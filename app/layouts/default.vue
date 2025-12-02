@@ -7,7 +7,7 @@
           <!-- Logo -->
           <NuxtLink to="/applications" class="flex items-center gap-2 group">
             <span
-              class="hidden sm:inline text-xl md:text-2xl font-bold text-urban-darkslate group-hover:text-urban-indigo transition-colors duration-200">
+              class="text-xl md:text-2xl font-bold text-urban-darkslate group-hover:text-urban-indigo transition-colors duration-200">
               GR-JT
             </span>
           </NuxtLink>
