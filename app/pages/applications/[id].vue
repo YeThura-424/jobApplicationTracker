@@ -65,6 +65,12 @@
         <p class="text-urban-slate whitespace-pre-wrap">{{ currentApplication.job_description }}</p>
       </div>
 
+      <!-- Job Description -->
+      <div v-if="currentApplication.job_requirements" class="card">
+        <h2 class="text-xl font-bold text-urban-dark-slate mb-4">Job Requirements</h2>
+        <p class="text-urban-slate whitespace-pre-wrap">{{ currentApplication.job_requirements }}</p>
+      </div>
+
       <!-- Skills -->
       <div class="card">
         <h2 class="text-xl font-bold text-urban-dark-slate mb-4">Skills</h2>
@@ -143,7 +149,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   middleware: 'auth',
 })
@@ -152,15 +158,15 @@ const route = useRoute()
 const { currentApplication, loading, statusLogs, getApplicationById, getStatusLogs, updateApplicationStatus } = useJobApplication()
 
 const updatingStatus = ref(false)
-const statusError = ref<string | null>(null)
+const statusError = ref(null)
 const logsLoading = ref(false)
 
 const statusUpdate = ref({
-  status: 'applied' as const,
+  status: 'applied',
   notes: '',
 })
 
-const applicationId = route.params.id as string
+const applicationId = route.params.id
 
 onMounted(async () => {
   await getApplicationById(applicationId)
@@ -195,23 +201,23 @@ const handleStatusUpdate = async () => {
   updatingStatus.value = false
 }
 
-const formatStatus = (status: string) => {
+const formatStatus = (status) => {
   return status.charAt(0).toUpperCase() + status.slice(1)
 }
 
-const formatJobType = (type: string) => {
+const formatJobType = (type) => {
   return type.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
 
-const formatDate = (date: string) => {
+const formatDate = (date) => {
   return new Date(date).toLocaleDateString()
 }
 
-const formatDateTime = (date: string) => {
+const formatDateTime = (date) => {
   return new Date(date).toLocaleString()
 }
 
-const getStatusBadgeClass = (status: string) => {
+const getStatusBadgeClass = (status) => {
   const baseClass = 'badge px-3 py-1'
   switch (status) {
     case 'offered':

@@ -46,6 +46,14 @@
           placeholder="Paste the job description here..." required></textarea>
       </div>
 
+      <div>
+        <label class="block text-sm font-medium text-urban-dark-slate mb-2">
+          Job Requirements *
+        </label>
+        <textarea v-model="form.job_requirements" class="input-field resize-none h-24"
+          placeholder="Paste the job requirements here..." required></textarea>
+      </div>
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
         <div>
@@ -126,8 +134,7 @@
           <label class="block text-sm font-medium text-urban-dark-slate mb-2">
             Years of Experience *
           </label>
-          <input v-model.number="form.experience_year" type="number" class="input-field" placeholder="e.g., 5"
-            required />
+          <input v-model="form.experience_year" type="number" class="input-field" placeholder="e.g., 5" required />
         </div>
       </div>
 
@@ -137,6 +144,14 @@
         </label>
         <input v-model="form.skills" type="text" class="input-field" placeholder="e.g., JavaScript, Vue.js, Node.js" />
         <p class="text-xs text-urban-dim mt-1">Separate skills with commas</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-urban-dark-slate mb-2">
+          Job Post Link
+        </label>
+        <input v-model="form.job_post_link" type="text" class="input-field"
+          placeholder="e.g., https://jobposting.com" />
       </div>
 
       <div v-if="error" class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -179,8 +194,10 @@ const form = ref({
   job_type: 'full-time', // fulltime, part-time, contract, permanent
   experience_level: 'mid',
   experience_year: 0,
+  job_requirements: '',
   skills: '',
   applied_date: '',
+  job_post_link: ''
 })
 
 const handleSubmit = async () => {

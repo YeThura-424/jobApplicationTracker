@@ -32,7 +32,7 @@
     </div>
 
     <!-- Applications List -->
-    <div v-else class="space-y-4 md:space-y-6">
+    <div v-else class="space-y-4 md:space-y-6 bg-white shadow-sm rounded-lg p-6 md:p-8">
       <div v-for="app in applications" :key="app.id" @click="navigateTo(`/applications/${app.id}`)" class="card-hover">
         <!-- Top section: Title and Status -->
         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">

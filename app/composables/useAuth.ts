@@ -12,7 +12,7 @@ export const useAuth = () => {
       if (session?.user) {
         // Fetch user profile from database
         const { data, error: fetchError } = await $supabase
-          .from('users')
+          .from('profile')
           .select('*')
           .eq('id', session.user.id)
           .single()
@@ -83,7 +83,7 @@ export const useAuth = () => {
 
       // Fetch user profile
       const { data: profileData, error: profileError } = await $supabase
-        .from('users')
+        .from('profile')
         .select('*')
         .eq('id', data.user.id)
         .single()
