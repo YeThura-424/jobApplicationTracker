@@ -54,7 +54,7 @@ export const useJobApplication = () => {
     }
   }
 
-  const getApplications = async () => {
+  const getApplications = async (search: string | null) => {
     loading.value = true
     error.value = null
 
@@ -62,9 +62,13 @@ export const useJobApplication = () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) throw new Error('User not authenticated')
 
-      const { data, error: fetchError } = await supabase
-        .from('job_application')
-        .select('*')
+      let query = supabase.from('job_application').select('*');
+
+      if (search) {
+        query = query.eq('job_title', `%${search}%`)
+      }
+
+      const { data, error: fetchError } = await query
         .eq('user_id', session.user.id)
         .order('applied_date', { ascending: false })
 
