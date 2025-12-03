@@ -65,7 +65,7 @@ export const useJobApplication = () => {
       let query = supabase.from('job_application').select('*');
 
       if (search) {
-        query = query.eq('job_title', `%${search}%`)
+        query = query.like('job_title', `%${search}%`)
       }
 
       const { data, error: fetchError } = await query
