@@ -17,6 +17,10 @@
 }
 
 @layer components {
+  button{
+    cursor: pointer;
+  }
+  
   .btn-primary {
     padding: 0.5rem 1rem;
     background-color: #4B0082;
