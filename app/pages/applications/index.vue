@@ -11,6 +11,13 @@
       </NuxtLink>
     </div>
 
+    <div class="mb-6 flex gap-2">
+      <input v-model="searchQuery" type="text" placeholder="Search by job title..."
+        class="w-full p-3 border border-urban-lightslate rounded-md focus:outline-none" />
+      <button @click="getApplications(searchQuery)"
+        class="btn-primary w-full sm:w-auto whitespace-nowrap py-2 md:py-3">Search</button>
+    </div>
+
     <!-- Loading State -->
     <div v-if="loading" class="flex justify-center items-center py-20">
       <div class="text-center">
@@ -87,6 +94,8 @@
 definePageMeta({
   middleware: 'auth',
 })
+
+const searchQuery = ref('');
 
 const { applications, loading, getApplications } = useJobApplication()
 
