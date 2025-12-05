@@ -61,7 +61,7 @@
         <!-- Top section: Title and Status -->
         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
           <div class="">
-            <h2 class="text-lg font-bold text-urban-darkslate truncate">{{ app.job_title }}</h2>
+            <h2 class="text-lg font-bold text-urban-darkslate line-clamp-1">{{ app.job_title }}</h2>
             <p class="text-urban-slate text-sm md:text-base mt-1">{{ app.company }} • {{ app.location }}</p>
           </div>
           <span :class="getStatusBadgeClass(app.status)" class="whitespace-nowrap">
