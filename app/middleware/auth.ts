@@ -19,7 +19,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   }
 
   // If session exists and trying to access auth pages, redirect to dashboard
-  if (session && (to.path === '/auth/login' || to.path === '/auth/register')) {
+  if (session && (to.path === '/auth/login' || to.path === '/auth/register' || to.path === '/')) {
     return navigateTo('/applications')
   }
 })

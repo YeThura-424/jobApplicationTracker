@@ -38,14 +38,16 @@
           </div>
           <div>
             <p class="text-urban-dim text-sm">Applied From</p>
-            <p class="text-urban-dark-slate font-medium">{{ currentApplication.applied_from }}</p>
+            <a class="text-urban-dark-slate font-medium" :href="currentApplication.job_post_link" target="_blank"
+              rel="noopener noreferrer">{{
+                currentApplication.applied_from }}</a>
           </div>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <div>
             <p class="text-urban-dim text-sm">Experience Level</p>
-            <p class="text-urban-dark-slate font-medium">{{ currentApplication.experience_level }}</p>
+            <p class="text-urban-dark-slate capitalize font-medium">{{ currentApplication.experience_level }}</p>
           </div>
           <div>
             <p class="text-urban-dim text-sm">Experience Years</p>
@@ -76,7 +78,7 @@
         <h2 class="text-xl font-bold text-urban-dark-slate mb-4">Skills</h2>
         <div class="flex flex-wrap gap-2">
           <span v-for="skill in currentApplication.skills" :key="skill"
-            class="px-3 py-1 bg-urban-100 text-urban-dark-slate rounded-full text-sm font-medium">
+            class="px-3 py-1 bg-slate-100 text-urban-darkslate text-xs md:text-sm rounded-full font-medium">
             {{ skill }}
           </span>
         </div>
