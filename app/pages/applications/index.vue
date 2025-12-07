@@ -131,7 +131,7 @@ const searchQuery = ref('');
 const { applications, loading, totalApplications, currentPage, perPage, totalPages, getApplications } = useJobApplication()
 
 onMounted(() => {
-  getApplications()
+  getApplications(searchQuery.value, 1, perPage.value)
 })
 
 

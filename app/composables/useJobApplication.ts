@@ -5,7 +5,7 @@ export const useJobApplication = () => {
   const totalApplications = ref<number | null>(null)
   const currentApplication = ref<JobApplication | null>(null)
   const currentPage = ref(1)
-  const perPage = ref(10)
+  const perPage = ref(5)
   const totalPages = ref<number | null>(null)
   const statusLogs = ref<JobStatusLog[]>([])
   const loading = ref(false)
