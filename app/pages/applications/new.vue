@@ -134,7 +134,7 @@
           <label class="block text-sm font-medium text-urban-dark-slate mb-2">
             Years of Experience *
           </label>
-          <input v-model="form.experience_year" type="number" class="input-field" placeholder="e.g., 5" required />
+          <input v-model="form.experience_year" class="input-field" placeholder="e.g., 5" required />
         </div>
       </div>
 

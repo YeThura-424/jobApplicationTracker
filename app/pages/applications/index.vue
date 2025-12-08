@@ -14,7 +14,7 @@
     <div class="mb-6 flex gap-2">
       <input v-model="searchQuery" type="text" placeholder="Search by job title..."
         class="w-full p-3 border border-urban-lightslate rounded-md focus:outline-none" />
-      <button @click="getApplications()" class="btn-secondary sm:w-auto whitespace-nowrap py-2 md:py-3">
+      <button @click="resetSearch()" class="btn-secondary sm:w-auto whitespace-nowrap py-2 md:py-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
           <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
             stroke-width="1">
@@ -133,6 +133,11 @@ const { applications, loading, totalApplications, currentPage, perPage, totalPag
 onMounted(() => {
   getApplications(searchQuery.value, 1, perPage.value)
 })
+
+const resetSearch = () => {
+  searchQuery.value = ''
+  getApplications('', 1, perPage.value)
+}
 
 
 const formatStatus = (status) => {
