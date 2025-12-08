@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+::-webkit-scrollbar {
+    width: 3px;
+  }
+
+ ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #708090;
+  }
+
 @layer base {
   :root {
     --color-urban-darkslate: #2F4F4F;
@@ -17,6 +29,19 @@
 }
 
 @layer components {
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #708090;
+  }
+
   button{
     cursor: pointer;
   }

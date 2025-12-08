@@ -56,13 +56,21 @@
 
     <!-- Applications List -->
     <div v-else class="space-y-4 md:space-y-6">
+      <div class="display-message-container flex justify-between items-center">
+        <p class="text-urban-slate mb-4 text-sm md:text-base">Total Applications: {{ totalApplications }}</p>
+        <p class="text-urban-slate mb-4 text-sm md:text-base">Showing {{
+          applications.length }} of {{ totalApplications }}</p>
+      </div>
       <div v-for="app in applications" :key="app.id" @click="navigateTo(`/applications/${app.id}`)"
         class="card-hover bg-white shadow-sm rounded-lg p-6 md:p-8">
         <!-- Top section: Title and Status -->
         <div class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
           <div class="">
             <h2 class="text-lg font-bold text-urban-darkslate line-clamp-1">{{ app.job_title }}</h2>
-            <p class="text-urban-slate text-sm md:text-base mt-1">{{ app.company }} • {{ app.location }}</p>
+            <p class="text-urban-slate text-sm md:text-base mt-1">{{ app.company }} • {{ app.location }} •
+              <span class="text-slate-500 text-sm md:text-base">{{
+                getTimeAgo(app.applied_date) }}</span>
+            </p>
           </div>
           <span :class="getStatusBadgeClass(app.status)" class="whitespace-nowrap">
             {{ formatStatus(app.status) }}
@@ -102,6 +110,13 @@
           {{ app.job_description.substring(0, 150) }}{{ app.job_description.length > 150 ? '...' : '' }}
         </p>
       </div>
+
+      <div v-if="currentPage < totalPages" class="load-more-button flex justify-center mt-6 md:mt-8">
+        <button @click="getApplications(searchQuery, currentPage + 1, perPage)"
+          class="btn-primary w-full sm:w-auto whitespace-nowrap py-2 md:py-3">
+          Load More Applications
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -113,11 +128,12 @@ definePageMeta({
 
 const searchQuery = ref('');
 
-const { applications, loading, getApplications } = useJobApplication()
+const { applications, loading, totalApplications, currentPage, perPage, totalPages, getApplications } = useJobApplication()
 
 onMounted(() => {
   getApplications()
 })
+
 
 const formatStatus = (status) => {
   return status.charAt(0).toUpperCase() + status.slice(1)
@@ -143,5 +159,23 @@ const getStatusBadgeClass = (status) => {
     default:
       return `${baseClass} badge-pending`
   }
+}
+
+const getTimeAgo = (date) => {
+  const now = new Date()
+  const past = new Date(date)
+  const diffInMs = now - past
+  const diffInMinutes = Math.floor(diffInMs / (1000 * 60))
+  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60))
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+
+  if (diffInMinutes < 1) return 'Just now'
+  if (diffInMinutes < 60) return `${diffInMinutes} minute ago`
+  if (diffInHours < 24) return `${diffInHours} hour ago`
+  if (diffInDays === 1) return '1 day ago'
+  if (diffInDays < 7) return `${diffInDays} days ago`
+  if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} week(s) ago`
+  if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} month(s) ago`
+  return `${Math.floor(diffInDays / 365)} year(s) ago`
 }
 </script>

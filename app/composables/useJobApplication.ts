@@ -2,7 +2,11 @@ import type { JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusL
 
 export const useJobApplication = () => {
   const applications = ref<JobApplication[]>([])
+  const totalApplications = ref<number | null>(null)
   const currentApplication = ref<JobApplication | null>(null)
+  const currentPage = ref(1)
+  const perPage = ref(10)
+  const totalPages = ref<number | null>(null)
   const statusLogs = ref<JobStatusLog[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -54,7 +58,11 @@ export const useJobApplication = () => {
     }
   }
 
-  const getApplications = async (search: string | null) => {
+  const getApplications = async (
+      search: string | null,
+      page: number = 1,
+      per_page: number = 10
+  ) => {
     loading.value = true
     error.value = null
 
@@ -62,19 +70,29 @@ export const useJobApplication = () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) throw new Error('User not authenticated')
 
-      let query = supabase.from('job_application').select('*');
+      const offset = (page - 1) * per_page
+
+      let query = supabase
+          .from('job_application')
+          .select('*', { count: 'exact' })
+          .eq('user_id', session.user.id);
 
       if (search) {
         query = query.like('job_title', `%${search}%`)
       }
 
-      const { data, error: fetchError } = await query
-        .eq('user_id', session.user.id)
+      const { data, count, error: fetchError } = await query
         .order('applied_date', { ascending: false })
+        .range(offset, offset + per_page - 1)
 
       if (fetchError) throw fetchError
 
-      applications.value = data || []
+      applications.value = page === 1 ? (data || []) : [...applications.value, ...(data || [])]
+      totalApplications.value = count
+      currentPage.value = page
+      perPage.value = per_page
+      totalPages.value = Math.ceil((count ?? 0) / per_page)
+
       return { success: true, applications: applications.value }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch applications'
@@ -176,10 +194,14 @@ export const useJobApplication = () => {
 
   return {
     applications: readonly(applications),
+    totalApplications: readonly(totalApplications),
     currentApplication: readonly(currentApplication),
     statusLogs: readonly(statusLogs),
     loading: readonly(loading),
     error: readonly(error),
+    currentPage: readonly(currentPage),
+    perPage: readonly(perPage),
+    totalPages: readonly(totalPages),
     submitApplication,
     getApplications,
     getApplicationById,
