@@ -72,6 +72,7 @@ export interface StatusUpdateInput {
 
 export interface GetApplicationPayload {
   search: string
+  status: string
   applied_at: string
   page: number
   per_page: number

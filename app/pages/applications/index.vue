@@ -11,29 +11,80 @@
       </NuxtLink>
     </div>
 
-    <div class="mb-6 flex gap-2">
+    <!-- status tabs section -->
+    <div class="mb-3 flex gap-2 overflow-x-auto pb-2">
+      <button @click="selectedStatus = 'all'" :class="[
+        'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors text-sm md:text-base text-white',
+        selectedStatus === 'all'
+          ? 'bg-urban-indigo'
+          : 'bg-urban-slate hover:bg-slate-500'
+      ]">
+        All
+      </button>
+      <button @click="selectedStatus = 'applied'" :class="[
+        'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors text-sm md:text-base text-white',
+        selectedStatus === 'applied'
+          ? 'bg-urban-indigo'
+          : 'bg-urban-slate hover:bg-slate-500'
+      ]">
+        Applied
+      </button>
+      <button @click="selectedStatus = 'interviewing'" :class="[
+        'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors text-sm md:text-base text-white',
+        selectedStatus === 'interviewing'
+          ? 'bg-urban-indigo'
+          : 'bg-urban-slate hover:bg-slate-500'
+      ]">
+        Interviewing
+      </button>
+      <button @click="selectedStatus = 'offered'" :class="[
+        'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors text-sm md:text-base text-white',
+        selectedStatus === 'offered'
+          ? 'bg-urban-indigo'
+          : 'bg-urban-slate hover:bg-slate-500'
+      ]">
+        Offered
+      </button>
+      <button @click="selectedStatus = 'rejected'" :class="[
+        'px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors text-sm md:text-base text-white',
+        selectedStatus === 'rejected'
+          ? 'bg-urban-indigo'
+          : 'bg-urban-slate hover:bg-slate-500'
+      ]">
+        Rejected
+      </button>
+    </div>
+
+    <!-- search section  -->
+    <div class="mb-3 flex flex-col md:flex-row gap-2">
       <input v-model="searchQuery" type="text" placeholder="Search by job title..." class="input-field" />
       <VueDatePicker v-model="appliedDate" class="" auto-apply placeholder="Select apply date"
         :formats="{ input: 'yyyy-MM-dd' }">
       </VueDatePicker>
-      <button @click="resetSearch()" class="btn-secondary sm:w-auto whitespace-nowrap">
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
-          <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="1">
-            <path d="M3.578 6.487A8 8 0 1 1 2.5 10.5" />
-            <path d="M7.5 6.5h-4v-4" />
-          </g>
-        </svg>
-      </button>
+      <div class="action-buttons flex gap-2 justify-end">
+        <button @click="resetSearch()"
+          class="btn-secondary flex gap-2 justify-center w-full sm:w-auto whitespace-nowrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+            <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="1">
+              <path d="M3.578 6.487A8 8 0 1 1 2.5 10.5" />
+              <path d="M7.5 6.5h-4v-4" />
+            </g>
+          </svg>
+          <span class="md:hidden">Reset</span>
+        </button>
 
-      <button @click="searchApplication()" class="btn-primary sm:w-auto whitespace-nowrap">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-            <path d="m21 21l-4.34-4.34" />
-            <circle cx="11" cy="11" r="8" />
-          </g>
-        </svg>
-      </button>
+        <button @click="searchApplication()"
+          class="btn-primary flex gap-2 justify-center w-full sm:w-auto whitespace-nowrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              <path d="m21 21l-4.34-4.34" />
+              <circle cx="11" cy="11" r="8" />
+            </g>
+          </svg>
+          <span class="md:hidden">Search</span>
+        </button>
+      </div>
     </div>
 
     <!-- Loading State -->
@@ -114,8 +165,7 @@
       </div>
 
       <div v-if="currentPage < totalPages" class="load-more-button flex justify-center mt-6 md:mt-8">
-        <button @click="getApplications(searchQuery, currentPage + 1, perPage)"
-          class="btn-primary w-full sm:w-auto whitespace-nowrap py-2 md:py-3">
+        <button @click="loadMoreApplications()" class="btn-primary w-full sm:w-auto whitespace-nowrap py-2 md:py-3">
           Load More Applications
         </button>
       </div>
@@ -131,27 +181,50 @@ definePageMeta({
   middleware: 'auth',
 })
 
+const route = useRoute();
+const router = useRouter();
+
 const searchQuery = ref('');
 const appliedDate = ref(null);
+const selectedStatus = ref(route.query.status || 'all');
 
 const { applications, loading, totalApplications, currentPage, perPage, totalPages, getApplications } = useJobApplication()
 
+watch(() => selectedStatus.value, () => {
+  router.push({
+    query: { status: selectedStatus.value }
+  })
+  let status = selectedStatus.value == 'all' ? null : selectedStatus.value
+
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
+});
+
 onMounted(() => {
-  getApplications({ search: searchQuery.value, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
+  let status = selectedStatus.value == 'all' ? null : selectedStatus.value
+
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
 })
 
 const searchApplication = () => {
+  let status = selectedStatus.value == 'all' ? null : selectedStatus.value
   getApplications({
-    search: searchQuery.value, applied_at: appliedDate.value, page: 1, per_page: perPage.value
+    search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value
   })
 }
 
 const resetSearch = () => {
   searchQuery.value = ''
   appliedDate.value = null
-  getApplications({ search: '', applied_at: null, page: 1, per_page: perPage.value })
+  let status = selectedStatus.value == 'all' ? null : selectedStatus.value
+
+  getApplications({ search: '', status: status, applied_at: null, page: 1, per_page: perPage.value })
 }
 
+const loadMoreApplications = () => {
+  let status = selectedStatus.value == 'all' ? null : selectedStatus.value
+
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: currentPage.value + 1, per_page: perPage.value })
+}
 
 const formatStatus = (status) => {
   return status.charAt(0).toUpperCase() + status.slice(1)

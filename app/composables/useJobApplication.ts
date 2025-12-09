@@ -88,6 +88,10 @@ export const useJobApplication = () => {
                     .lt('applied_date', end.toISOString())
       }
 
+      if (payload.status) {
+        query = query.eq('status', payload.status)
+      }
+
       const { data, count, error: fetchError } = await query
         .order('applied_date', { ascending: false })
         .range(offset, offset + payload.per_page - 1)
