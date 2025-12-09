@@ -1,4 +1,4 @@
-import type { JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusLog } from '~/types'
+import type { GetApplicationPayload, JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusLog } from '~/types'
 
 export const useJobApplication = () => {
   const applications = ref<JobApplication[]>([])
@@ -58,11 +58,7 @@ export const useJobApplication = () => {
     }
   }
 
-  const getApplications = async (
-      search: string | null,
-      page: number = 1,
-      per_page: number = 10
-  ) => {
+  const getApplications = async (payload: GetApplicationPayload) => {
     loading.value = true
     error.value = null
 
@@ -70,29 +66,39 @@ export const useJobApplication = () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user) throw new Error('User not authenticated')
 
-      const offset = (page - 1) * per_page
+      const offset = (payload.page - 1) * payload.per_page
 
       let query = supabase
           .from('job_application')
           .select('*', { count: 'exact' })
           .eq('user_id', session.user.id);
 
-      if (search) {
-        query = query.like('job_title', `%${search}%`)
+      if (payload.search) {
+        query = query.like('job_title', `%${payload.search}%`)
+      }
+
+      if (payload.applied_at) {
+        const start = new Date(payload.applied_at)
+        start.setHours(0, 0, 0, 0)
+
+        const end = new Date(payload.applied_at)
+        end.setHours(23, 59, 59, 999)
+
+        query = query.gte('applied_date', start.toISOString())
+                    .lt('applied_date', end.toISOString())
       }
 
       const { data, count, error: fetchError } = await query
         .order('applied_date', { ascending: false })
-        .range(offset, offset + per_page - 1)
+        .range(offset, offset + payload.per_page - 1)
 
       if (fetchError) throw fetchError
 
-      applications.value = page === 1 ? (data || []) : [...applications.value, ...(data || [])]
+      applications.value = payload.page === 1 ? (data || []) : [...applications.value, ...(data || [])]
       totalApplications.value = count
-      currentPage.value = page
-      perPage.value = per_page
-      totalPages.value = Math.ceil((count ?? 0) / per_page)
-
+      currentPage.value = payload.page
+      perPage.value = payload.per_page
+      totalPages.value = Math.ceil((count ?? 0) / payload.per_page)
       return { success: true, applications: applications.value }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch applications'

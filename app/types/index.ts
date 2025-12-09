@@ -69,3 +69,10 @@ export interface StatusUpdateInput {
   status: 'applied' | 'rejected' | 'interviewing' | 'offered'
   notes?: string
 }
+
+export interface GetApplicationPayload {
+  search: string
+  applied_at: string
+  page: number
+  per_page: number
+}

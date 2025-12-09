@@ -12,9 +12,11 @@
     </div>
 
     <div class="mb-6 flex gap-2">
-      <input v-model="searchQuery" type="text" placeholder="Search by job title..."
-        class="w-full p-3 border border-urban-lightslate rounded-md focus:outline-none" />
-      <button @click="resetSearch()" class="btn-secondary sm:w-auto whitespace-nowrap py-2 md:py-3">
+      <input v-model="searchQuery" type="text" placeholder="Search by job title..." class="input-field" />
+      <VueDatePicker v-model="appliedDate" class="" auto-apply placeholder="Select apply date"
+        :formats="{ input: 'yyyy-MM-dd' }">
+      </VueDatePicker>
+      <button @click="resetSearch()" class="btn-secondary sm:w-auto whitespace-nowrap">
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
           <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
             stroke-width="1">
@@ -24,7 +26,7 @@
         </svg>
       </button>
 
-      <button @click="getApplications(searchQuery)" class="btn-primary sm:w-auto whitespace-nowrap py-2 md:py-3">
+      <button @click="searchApplication()" class="btn-primary sm:w-auto whitespace-nowrap">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
             <path d="m21 21l-4.34-4.34" />
@@ -122,21 +124,32 @@
 </template>
 
 <script setup>
+import { VueDatePicker } from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 definePageMeta({
   middleware: 'auth',
 })
 
 const searchQuery = ref('');
+const appliedDate = ref(null);
 
 const { applications, loading, totalApplications, currentPage, perPage, totalPages, getApplications } = useJobApplication()
 
 onMounted(() => {
-  getApplications(searchQuery.value, 1, perPage.value)
+  getApplications({ search: searchQuery.value, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
 })
+
+const searchApplication = () => {
+  getApplications({
+    search: searchQuery.value, applied_at: appliedDate.value, page: 1, per_page: perPage.value
+  })
+}
 
 const resetSearch = () => {
   searchQuery.value = ''
-  getApplications('', 1, perPage.value)
+  appliedDate.value = null
+  getApplications({ search: '', applied_at: null, page: 1, per_page: perPage.value })
 }
 
 
