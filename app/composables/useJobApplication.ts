@@ -74,7 +74,8 @@ export const useJobApplication = () => {
           .eq('user_id', session.user.id);
 
       if (payload.search) {
-        query = query.like('job_title', `%${payload.search}%`)
+        // query = query.like('job_title', `%${payload.search}%`)4
+        query = query.or(`job_title.ilike.%${payload.search}%, company.ilike.%${payload.search}%`)
       }
 
       if (payload.applied_at) {
