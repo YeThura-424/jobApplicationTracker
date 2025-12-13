@@ -6,8 +6,8 @@
         <div class="inline-block mb-4 p-3 bg-linear-to-br from-urban-indigo to-urban-slate rounded-full">
           <span class="text-4xl">📋</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-urban-darkslate mb-3">JobTracker</h1>
-        <p class="text-urban-slate text-lg md:text-xl">Organize your job search, one application at a time</p>
+        <h1 class="text-4xl md:text-5xl font-bold text-urban-white mb-3">JobTracker</h1>
+        <p class="text-white text-lg md:text-xl">Organize your job search, one application at a time</p>
       </div>
 
       <!-- Action Buttons -->
@@ -28,7 +28,7 @@
           <div class="flex items-start gap-4">
             <div class="shrink-0">
               <div
-                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-white font-bold">
                 ✓
               </div>
             </div>
@@ -41,7 +41,7 @@
           <div class="flex items-start gap-4">
             <div class="shrink-0">
               <div
-                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-white font-bold">
                 ✓
               </div>
             </div>
@@ -54,7 +54,7 @@
           <div class="flex items-start gap-4">
             <div class="shrink-0">
               <div
-                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-white font-bold">
                 ✓
               </div>
             </div>
@@ -67,7 +67,7 @@
           <div class="flex items-start gap-4">
             <div class="shrink-0">
               <div
-                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-darkslate font-bold">
+                class="flex items-center justify-center h-8 w-8 rounded-lg bg-urban-indigo text-urban-white font-bold">
                 ✓
               </div>
             </div>
@@ -95,15 +95,15 @@
       <div class="mt-10 grid grid-cols-3 gap-4 text-center">
         <div>
           <p class="text-2xl md:text-3xl font-bold text-urban-indigo">100%</p>
-          <p class="text-sm text-urban-slate mt-1">Free to Use</p>
+          <p class="text-sm text-white mt-1">Free to Use</p>
         </div>
         <div>
           <p class="text-2xl md:text-3xl font-bold text-urban-indigo">∞</p>
-          <p class="text-sm text-urban-slate mt-1">Unlimited Apps</p>
+          <p class="text-sm text-white mt-1">Unlimited Apps</p>
         </div>
         <div>
           <p class="text-2xl md:text-3xl font-bold text-urban-indigo">🔒</p>
-          <p class="text-sm text-urban-slate mt-1">Secure & Private</p>
+          <p class="text-sm text-white mt-1">Secure & Private</p>
         </div>
       </div>
     </div>
