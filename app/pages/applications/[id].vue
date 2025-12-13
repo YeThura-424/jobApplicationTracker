@@ -51,7 +51,7 @@
           </div>
           <div>
             <p class="text-urban-dim text-sm">Experience Years</p>
-            <p class="text-urban-dark-slate font-medium">{{ currentApplication.experience_year }}+ years</p>
+            <p class="text-urban-dark-slate font-medium">{{ currentApplication.experience_year }} years</p>
           </div>
           <div>
             <p class="text-urban-dim text-sm">Salary Expectation</p>

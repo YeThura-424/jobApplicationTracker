@@ -158,10 +158,10 @@
         {{ error }}
       </div>
 
-      <div class="flex gap-4">
+      <div class="flex flex-col md:flex-row gap-4">
         <button type="submit" :disabled="loading"
           class="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed">
-          {{ loading ? 'Submitting...' : 'Submit Application' }}
+          {{ loading ? 'Submitting....' : 'Submit Application' }}
         </button>
         <NuxtLink to="/applications" class="btn-outline flex-1 text-center">
           Cancel
