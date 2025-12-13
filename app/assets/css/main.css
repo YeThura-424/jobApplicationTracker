@@ -27,6 +27,7 @@ input.dp__pointer.dp__input_readonly.dp__input.dp__input_icon_pad.dp__input_reg:
 
 @theme {
     --color-urban-darkslate: #2F4F4F;
+    --color-urban-white: #CACACC;
     --color-urban-dim: #696969;
     --color-urban-slate: #708090;
     --color-urban-lightslate: #778899;
