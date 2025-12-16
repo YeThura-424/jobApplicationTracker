@@ -139,11 +139,13 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4 text-sm md:text-base">
           <div class="min-w-0">
             <p class="text-urban-dim font-semibold">Experience Level</p>
-            <p class="text-urban-darkslate font-medium truncate">{{ app.experience_level }}</p>
+            <p class="text-urban-darkslate font-medium capitalize truncate">{{ app.experience_level }}</p>
           </div>
           <div class="min-w-0">
             <p class="text-urban-dim font-semibold">Experience</p>
-            <p class="text-urban-darkslate font-medium">{{ app.experience_year }}+ yrs</p>
+            <p v-if="includeNumber(app.experience_year)" class="text-urban-darkslate font-medium">{{
+              app.experience_year }} yrs</p>
+            <p v-else class="text-urban-darkslate font-medium">Not Mentioned</p>
           </div>
           <div class="min-w-0">
             <p class="text-urban-dim font-semibold">Job Type</p>
@@ -273,5 +275,11 @@ const getTimeAgo = (date) => {
   if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} week(s) ago`
   if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} month(s) ago`
   return `${Math.floor(diffInDays / 365)} year(s) ago`
+}
+
+function includeNumber(value) {
+  const match = value.match(/\d+/);
+  if (match?.length > 0) return true;
+  return false;
 }
 </script>
