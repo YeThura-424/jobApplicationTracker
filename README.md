@@ -1,75 +1,28 @@
-# Nuxt Minimal Starter
+# Job Application Tracker
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A web application built to help users track and manage their job applications efficiently throughout the hiring process.
 
-## Setup
+## 🚀 Tech Stack
 
-Make sure to install dependencies:
+- **Nuxt.js** – Frontend framework  
+- **Supabase** – Authentication & database  
+- **Tailwind CSS** – Utility-first styling  
 
-```bash
-# npm
-npm install
+## ✨ Features
 
-# pnpm
-pnpm install
+- User registration and authentication  
+- Create and manage job applications  
+- Status-based tabs:
+  - All  
+  - Applied  
+  - Interviewing  
+  - Offered  
+  - Rejected  
+- Search applications by job title, company, and applied date  
+- Paginated data loading for better performance  
+- Job application detail page  
+- Update job status with remarks from the detail view  
 
-# yarn
-yarn install
+## 🎯 Purpose
 
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This project focuses on clean UI, smooth user experience, and practical integration of **Nuxt.js** with **Supabase** for real-world job application tracking.
