@@ -16,7 +16,11 @@
         <div class="flex justify-between items-start mb-4">
           <div>
             <h1 class="text-3xl font-bold text-urban-dark-slate">{{ currentApplication.job_title }}</h1>
-            <p class="text-xl text-urban-slate mt-1">{{ currentApplication.company }}</p>
+            <p class="text-xl text-urban-slate mt-1">{{ currentApplication.company }} •
+              <span class="text-slate-500 text-sm md:text-base">{{
+                getTimeAgo(currentApplication.applied_date) }}</span>
+            </p>
+
           </div>
           <span :class="getStatusBadgeClass(currentApplication.status)">
             {{ formatStatus(currentApplication.status) }}
@@ -44,19 +48,44 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-urban-100">
           <div>
             <p class="text-urban-dim text-sm">Experience Level</p>
             <p class="text-urban-dark-slate capitalize font-medium">{{ currentApplication.experience_level }}</p>
           </div>
           <div>
             <p class="text-urban-dim text-sm">Experience Years</p>
-            <p class="text-urban-dark-slate font-medium">{{ currentApplication.experience_year }} years</p>
+            <p v-if="includeNumber(currentApplication.experience_year)" class="text-urban-dark-slate font-medium">{{
+              currentApplication.experience_year }} years</p>
+            <p v-else class="text-urban-dark-slate font-medium">{{ currentApplication.experience_year }}</p>
           </div>
           <div>
             <p class="text-urban-dim text-sm">Salary Expectation</p>
             <p class="text-urban-dark-slate font-medium">{{ currentApplication.salary_expectation || 'Not specified' }}
             </p>
+          </div>
+          <div>
+            <p class="text-urban-dim text-sm">Salary Provided</p>
+            <p class="text-urban-dark-slate font-medium">{{ currentApplication.salary_provided || 'Not specified' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 pb-6 border-b border-urban-100">
+          <div>
+            <p class="text-urban-dim text-sm">Job Location</p>
+            <p class="text-urban-dark-slate capitalize font-medium">{{ currentApplication.job_location }}</p>
+          </div>
+          <div>
+            <p class="text-urban-dim text-sm">Job Type</p>
+            <p class="text-urban-dark-slate font-medium" capitalize>{{ currentApplication.job_type }}</p>
+          </div>
+          <div>
+            <p class="text-urban-dim text-sm">Salary Providing Type</p>
+            <p class="text-urban-dark-slate font-medium capitalize">{{ currentApplication.salary_provided_type }}
+            </p>
+          </div>
+          <div>
           </div>
         </div>
       </div>
@@ -231,5 +260,29 @@ const getStatusBadgeClass = (status) => {
     default:
       return `${baseClass} badge-pending`
   }
+}
+
+const getTimeAgo = (date) => {
+  const now = new Date()
+  const past = new Date(date)
+  const diffInMs = now - past
+  const diffInMinutes = Math.floor(diffInMs / (1000 * 60))
+  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60))
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+
+  if (diffInMinutes < 1) return 'Just now'
+  if (diffInMinutes < 60) return `${diffInMinutes} minute ago`
+  if (diffInHours < 24) return `${diffInHours} hour ago`
+  if (diffInDays === 1) return '1 day ago'
+  if (diffInDays < 7) return `${diffInDays} days ago`
+  if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} week(s) ago`
+  if (diffInDays < 365) return `${Math.floor(diffInDays / 30)} month(s) ago`
+  return `${Math.floor(diffInDays / 365)} year(s) ago`
+}
+
+function includeNumber(value) {
+  const match = value.match(/\d+/);
+  if (match?.length > 0) return true;
+  return false;
 }
 </script>
