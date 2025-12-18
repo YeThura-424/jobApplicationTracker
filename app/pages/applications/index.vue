@@ -157,9 +157,9 @@
           </div>
           <div class="min-w-0">
             <p class="text-urban-dim text-sm">Applied From</p>
-            <a class="text-urban-dark-slate font-medium" :href="currentApplication.job_post_link" target="_blank"
+            <a class="text-urban-dark-slate font-medium" :href="app.job_post_link" target="_blank"
               rel="noopener noreferrer">{{
-                currentApplication.applied_from }}</a>
+                app.applied_from }}</a>
           </div>
         </div>
 
