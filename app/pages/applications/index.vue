@@ -136,7 +136,7 @@
         </div>
 
         <!-- Details Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4 text-sm md:text-base">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-4 text-sm md:text-base">
           <div class="min-w-0">
             <p class="text-urban-dim font-semibold">Experience Level</p>
             <p class="text-urban-darkslate font-medium capitalize truncate">{{ app.experience_level }}</p>
@@ -154,6 +154,12 @@
           <div class="min-w-0">
             <p class="text-urban-dim font-semibold">Applied</p>
             <p class="text-urban-darkslate font-medium">{{ formatDate(app.applied_date) }}</p>
+          </div>
+          <div class="min-w-0">
+            <p class="text-urban-dim text-sm">Applied From</p>
+            <a class="text-urban-dark-slate font-medium" :href="currentApplication.job_post_link" target="_blank"
+              rel="noopener noreferrer">{{
+                currentApplication.applied_from }}</a>
           </div>
         </div>
 
