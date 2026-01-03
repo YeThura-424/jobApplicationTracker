@@ -208,11 +208,21 @@ export const useJobApplication = () => {
     try {
       const { data, error: fetchError } = await supabase
         .from('job_application')
-        .select('applied_from', { distinct: true});
+        .select('applied_from', { distinct: true })
+        .not('applied_from', 'is', null)
+        .order('applied_from');
 
       if (fetchError) throw fetchError
 
-      jobAppliedFrom.value = data || []
+      const uniqueAppliedFrom = [...new Set(
+        (data ?? [])
+          .map(r => r.applied_from?.trim())
+          .filter(v => v) // remove null/empty
+      )];
+
+      console.log('all unique applied from here', uniqueAppliedFrom);
+
+      jobAppliedFrom.value = uniqueAppliedFrom
       return { success: true, appliedFrom: jobAppliedFrom.value }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch applied from data'

@@ -201,7 +201,7 @@ const searchQuery = ref('');
 const appliedDate = ref(null);
 const selectedStatus = ref(route.query.status || 'all');
 
-const { applications, loading, totalApplications, currentPage, perPage, totalPages, getApplications } = useJobApplication()
+const { applications, loading, totalApplications, jobAppliedFrom, currentPage, perPage, totalPages, getApplications, getAppliedFrom } = useJobApplication()
 
 watch(() => selectedStatus.value, () => {
   router.push({
@@ -214,7 +214,7 @@ watch(() => selectedStatus.value, () => {
 
 onMounted(() => {
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
-
+  getAppliedFrom();
   getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
 })
 
