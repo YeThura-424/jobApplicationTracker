@@ -56,6 +56,10 @@ export interface JobApplicationInput {
 
 }
 
+export interface JobAppliedFrom {
+  applied_from: string,
+}
+
 // Job Status Log types
 export interface JobStatusLog {
   id: string

@@ -1,4 +1,4 @@
-import type { GetApplicationPayload, JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusLog } from '~/types'
+import type { GetApplicationPayload, JobApplication, JobApplicationInput, StatusUpdateInput, JobStatusLog, JobAppliedFrom } from '~/types'
 
 export const useJobApplication = () => {
   const applications = ref<JobApplication[]>([])
@@ -8,6 +8,7 @@ export const useJobApplication = () => {
   const perPage = ref(5)
   const totalPages = ref<number | null>(null)
   const statusLogs = ref<JobStatusLog[]>([])
+  const jobAppliedFrom = ref<JobAppliedFrom[]>([]);
   const loading = ref(false)
   const error = ref<string | null>(null)
   const { $supabase: supabase } = useNuxtApp()
@@ -203,6 +204,24 @@ export const useJobApplication = () => {
     }
   }
 
+  const getAppliedFrom = async () => {
+    try {
+      const { data, error: fetchError } = await supabase
+        .from('job_application')
+        .select('applied_from', { distinct: true});
+
+      if (fetchError) throw fetchError
+
+      jobAppliedFrom.value = data || []
+      return { success: true, appliedFrom: jobAppliedFrom.value }
+    } catch (err: any) {
+      error.value = err.message || 'Failed to fetch applied from data'
+      return { success: false, error: error.value }
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     applications: readonly(applications),
     totalApplications: readonly(totalApplications),
@@ -218,5 +237,6 @@ export const useJobApplication = () => {
     getApplicationById,
     updateApplicationStatus,
     getStatusLogs,
+    getAppliedFrom,
   }
 }
