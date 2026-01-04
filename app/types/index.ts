@@ -78,6 +78,7 @@ export interface GetApplicationPayload {
   search: string
   status: string
   applied_at: string
+  applied_from: string
   page: number
   per_page: number
 }

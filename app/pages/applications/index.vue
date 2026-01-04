@@ -63,6 +63,11 @@
     <!-- search section  -->
     <div class="mb-3 flex flex-col md:flex-row gap-2">
       <input v-model="searchQuery" type="text" placeholder="Search by job title..." class="input-field" />
+      <select v-model="appliedFrom" name="applied_from" id="applied-from" placeholder="Select where you applied from"
+        class="input-field">
+        <option value="" disabled>Select where you applied from</option>
+        <option v-for="data in jobAppliedFrom" :key="data" :value="data">{{ data }}</option>
+      </select>
       <VueDatePicker v-model="appliedDate" class="" auto-apply placeholder="Select apply date"
         :formats="{ input: 'yyyy-MM-dd' }">
       </VueDatePicker>
@@ -198,6 +203,7 @@ const route = useRoute();
 const router = useRouter();
 
 const searchQuery = ref('');
+const appliedFrom = ref('');
 const appliedDate = ref(null);
 const selectedStatus = ref(route.query.status || 'all');
 
@@ -209,34 +215,35 @@ watch(() => selectedStatus.value, () => {
   })
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
 
-  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, applied_from: appliedFrom.value, page: 1, per_page: perPage.value })
 });
 
 onMounted(() => {
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
   getAppliedFrom();
-  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value })
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, applied_from: appliedFrom.value, page: 1, per_page: perPage.value })
 })
 
 const searchApplication = () => {
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
   getApplications({
-    search: searchQuery.value, status: status, applied_at: appliedDate.value, page: 1, per_page: perPage.value
+    search: searchQuery.value, status: status, applied_at: appliedDate.value, applied_from: appliedFrom.value, page: 1, per_page: perPage.value
   })
 }
 
 const resetSearch = () => {
   searchQuery.value = ''
+  appliedFrom.value = ''
   appliedDate.value = null
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
 
-  getApplications({ search: '', status: status, applied_at: null, page: 1, per_page: perPage.value })
+  getApplications({ search: '', status: status, applied_at: null, applied_from: null, page: 1, per_page: perPage.value })
 }
 
 const loadMoreApplications = () => {
   let status = selectedStatus.value == 'all' ? null : selectedStatus.value
 
-  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, page: currentPage.value + 1, per_page: perPage.value })
+  getApplications({ search: searchQuery.value, status: status, applied_at: appliedDate.value, applied_from: appliedFrom.value, page: currentPage.value + 1, per_page: perPage.value })
 }
 
 const formatStatus = (status) => {

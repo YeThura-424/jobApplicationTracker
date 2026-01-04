@@ -94,6 +94,10 @@ export const useJobApplication = () => {
         query = query.eq('status', payload.status)
       }
 
+      if (payload.applied_from) {
+        query = query.eq('applied_from', payload.applied_from)
+      }
+
       const { data, count, error: fetchError } = await query
         .order('applied_date', { ascending: false })
         .range(offset, offset + payload.per_page - 1)
@@ -236,6 +240,7 @@ export const useJobApplication = () => {
     applications: readonly(applications),
     totalApplications: readonly(totalApplications),
     currentApplication: readonly(currentApplication),
+    jobAppliedFrom: readonly(jobAppliedFrom),
     statusLogs: readonly(statusLogs),
     loading: readonly(loading),
     error: readonly(error),
