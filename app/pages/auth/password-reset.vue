@@ -11,7 +11,7 @@
       </div>
 
       <!-- Login Form -->
-      <form @submit.prevent="handleLogin" class="space-y-5">
+      <form @submit.prevent="resetPassword" class="space-y-5">
 
 
         <!-- Password Field -->
@@ -35,8 +35,6 @@
         </button>
       </form>
 
-      <!-- Divider -->
-      <div class="divider"></div>
     </div>
   </div>
 </template>
@@ -46,17 +44,22 @@ definePageMeta({
   layout: 'auth',
 })
 
-const { login, loading, error } = useAuth()
+const { $supabase } = useNuxtApp()
+const loading = ref(false);
 
 const form = ref({
   email: '',
   password: '',
 })
 
-const handleLogin = async () => {
-  const result = await login(form.value.email, form.value.password)
-  if (result.success) {
-    navigateTo('/applications')
+const resetPassword = async () => {
+  loading.value = true;
+  const { error } = await $supabase.auth.updateUser({
+    password: form.value.password
+  })
+
+  if (!error) {
+    return navigateTo('/auth/login')
   }
 }
 </script>
