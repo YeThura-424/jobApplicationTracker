@@ -24,7 +24,12 @@
           <label class="label">Password</label>
           <input v-model="form.password" type="password" class="input-field" placeholder="••••••••"
             aria-label="Password" required />
+          <p
+            class="text-sm text-urban-primary italic hover:text-urban-indigo cursor-pointer transition-colors duration-200 pt-2">
+            Forgot Password ?</p>
         </div>
+
+
 
         <!-- Error Message -->
         <div v-if="error" class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
