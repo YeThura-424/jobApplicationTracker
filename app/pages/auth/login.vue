@@ -127,8 +127,6 @@ definePageMeta({
 })
 const { $supabase } = useNuxtApp()
 
-const baseURL = 'https://gr-job-trace.netlify.app/';
-
 // const baseURL = 'https://gr-job-trace.netlify.app/';
 
 const showResetModal = ref(false)
