@@ -157,7 +157,7 @@ const sendResetEmail = async () => {
   const { error } = await $supabase.auth.resetPasswordForEmail(
     resetEmail.value,
     {
-      redirectTo: `${baseURL}/auth/password-reset`,
+      redirectTo: `${window.location.origin}/auth/password-reset`,
     }
   )
 
