@@ -1,2 +1,4 @@
 User-Agent: *
-Disallow:
+Allow: /
+# Add your site URL for the sitemap below (replace with your real domain)
+Sitemap: https://gr-job-trace.netlify.app/sitemap.xml
