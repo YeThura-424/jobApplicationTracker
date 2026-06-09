@@ -204,6 +204,17 @@ onMounted(async () => {
   if (currentApplication.value) {
     statusUpdate.value.status = currentApplication.value.status
     await loadStatusLogs()
+
+    useHead({
+      title: `${currentApplication.value.job_title} — ${currentApplication.value.company} | JobTracker`,
+      meta: [
+        { name: 'description', content: (currentApplication.value.job_description || '').substring(0, 160) || 'Application details on JobTracker' },
+        { property: 'og:title', content: `${currentApplication.value.job_title} — ${currentApplication.value.company} | JobTracker` },
+        { property: 'og:description', content: (currentApplication.value.job_description || '').substring(0, 160) || 'Application details on JobTracker' },
+        { property: 'og:type', content: 'article' },
+        { name: 'twitter:card', content: 'summary' }
+      ]
+    })
   }
 })
 
