@@ -199,6 +199,19 @@ definePageMeta({
   middleware: 'auth',
 })
 
+useHead({
+  title: 'Your Applications — JobTracker',
+  meta: [
+    { name: 'description', content: 'View, search, and manage your job applications with JobTracker.' },
+    { property: 'og:title', content: 'Your Applications — JobTracker' },
+    { property: 'og:description', content: 'View, search, and manage your job applications with JobTracker.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Your Applications — JobTracker' },
+    { name: 'twitter:description', content: 'View, search, and manage your job applications with JobTracker.' }
+  ]
+})
+
 const route = useRoute();
 const router = useRouter();
 

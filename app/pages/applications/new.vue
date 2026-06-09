@@ -179,6 +179,19 @@ definePageMeta({
   middleware: 'auth',
 })
 
+useHead({
+  title: 'Submit Job Application — JobTracker',
+  meta: [
+    { name: 'description', content: 'Submit a new job application and keep track of your job search with JobTracker.' },
+    { property: 'og:title', content: 'Submit Job Application — JobTracker' },
+    { property: 'og:description', content: 'Submit a new job application and keep track of your job search with JobTracker.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'Submit Job Application — JobTracker' },
+    { name: 'twitter:description', content: 'Submit a new job application and keep track of your job search with JobTracker.' }
+  ]
+})
+
 const { submitApplication, loading, error } = useJobApplication()
 
 const form = ref({

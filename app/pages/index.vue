@@ -114,4 +114,17 @@
 definePageMeta({
   layout: 'auth',
 })
+
+useHead({
+  title: 'JobTracker — Organize your job search',
+  meta: [
+    { name: 'description', content: 'Organize your job search, track applications, and stay organized with JobTracker.' },
+    { property: 'og:title', content: 'JobTracker — Organize your job search' },
+    { property: 'og:description', content: 'Organize your job search, track applications, and stay organized with JobTracker.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary' },
+    { name: 'twitter:title', content: 'JobTracker — Organize your job search' },
+    { name: 'twitter:description', content: 'Organize your job search, track applications, and stay organized with JobTracker.' }
+  ]
+})
 </script>
